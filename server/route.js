@@ -1,21 +1,30 @@
-const express = require('express');
-const Contact = require('./model');
-const route = express.Router();
+const express = require(express);
+const router = express.Router()
+const Data = require('./model')
 
-route.get('/leo', (req, res) => {
-    res.send("fffghhhhjjjj");
-});
-route.post('/api/contact', async (req, res) => {
-    try {
-        const { name, email, message } = req.body;
-          res.status(400).json({ error: 'All fields are required' });
-       
-        await newContact.save();
-        res.status(201).json({ message: 'Contact saved' });
-    } catch (error) {
-        console.error('Error saving contact:', error);
-        res.status(500).json({ error: 'Error saving contact' });
-    }
-});
 
-module.exports = route;
+router.get("/", () => {
+
+    Data.find().then(() => {
+        console.log("DATA IS AFICHER ");
+    }).catch(() => {
+        console.log("DATA IS NOT AFICHER");
+    })
+})
+
+router.post('/',async (req, res)=>{
+    const  {firstName,lastNamell,email,phone,message}=req.body;
+    const new_tasks = new Data ({
+        firstName:req.body.firstName,
+        lastNamell:req.body.lastNamell,
+        email:req.body.email,
+        phone:req.body.phone,
+        message:req.body.message
+    }).then(()=>{
+        console.log("data insertion ")
+    }).catch(()=>{
+        console.log(" Data is not insertion")
+    })
+    await new_tasks.save()
+})
+module.exports = router

@@ -1,21 +1,21 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const route = require('./route'); 
-const cors = require('cors');
+const express =require("express")
+const App = express()
+const mongoose =require("mongoose")
+const bodyParser = require("body-parser");
+const cors = require ("cors");
+const router = require("./route");
 
-const app = express();
-app.use(cors());
-app.use(express.json()); // Remplace bodyParser.json()
 
-app.use('/api', route);
 
-const mongoDBURL = 'mongodb://127.0.0.1:27017/contact'; 
+app.use(bodyParser.json())
+app.use(cors())
 
-mongoose.connect(mongoDBURL, {
+
+mongoose.connect("mongodb://localhost:27017/").then(()=>{
+    console.log("data is connected");
+}).catch(()=>{
+    console.log("data is not connected");
 })
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Failed to connect to MongoDB:', err.message));
-
-app.listen(8999, () => {
-    console.log('Server is running on port 8999');
-});
+App.listen(5000,()=>{
+    console.log("server is Running avec sucsses");
+})
