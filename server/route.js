@@ -1,4 +1,4 @@
-const express = require(express);
+const express = require("express");
 const router = express.Router()
 const Data = require('./model')
 
@@ -13,18 +13,18 @@ router.get("/", () => {
 })
 
 router.post('/',async (req, res)=>{
-    const  {firstName,lastNamell,email,phone,message}=req.body;
-    const new_tasks = new Data ({
+    const  {firstName,lastName,email,phone,message}=req.body;
+    console.log(req.body)
+    const contact = new Data ({
         firstName:req.body.firstName,
-        lastNamell:req.body.lastNamell,
+        lastName:req.body.lastName,
         email:req.body.email,
         phone:req.body.phone,
         message:req.body.message
-    }).then(()=>{
-        console.log("data insertion ")
-    }).catch(()=>{
-        console.log(" Data is not insertion")
     })
-    await new_tasks.save()
+    const savedContact = await contact.save();
+    console.log('Contact sauvegardée :', savedContact);
+    res.status(201).json(savedContact);
+    
 })
 module.exports = router
